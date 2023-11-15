@@ -6,32 +6,31 @@
     <title>Kalkulator Pemakaian Karbid</title>
     <style>
         body {
+            background-color: #f2f2f2;
             font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
+            margin: 20px;
         }
 
         h2 {
-            color: #333;
+            color: #333333;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
+            color: #333333;
         }
 
         input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
         }
 
         button {
-            background-color: #4CAF50;
+            background-color: #4caf50;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 15px;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
         }
 
@@ -39,9 +38,9 @@
             background-color: #45a049;
         }
 
-        #hasil {
-            font-weight: bold;
-            color: #333;
+        p {
+            color: #333333;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -56,7 +55,7 @@
     <input type="text" id="sulfur" placeholder="Misal: 0.9" required>
 
     <button onclick="hitungPemakaianKarbid()">Hitung</button>
-    <button onclick="resetForm()">Refresh</button>
+    <button onclick="refreshInput()">Refresh</button>
 
     <p>Hasil Pemakaian Karbid: <span id="hasil"></span> Kg</p>
 
@@ -64,20 +63,26 @@
         function hitungPemakaianKarbid() {
             // Mendapatkan nilai dari input
             var tonase = parseFloat(document.getElementById('tonase').value);
-            var sulfur = parseFloat(document.getElementById('sulfur').value.replace(',', '.')); // Mengganti koma menjadi titik
+            var sulfur = parseFloat(document.getElementById('sulfur').value);
+
+            // Validasi input
+            if (isNaN(tonase) || isNaN(sulfur)) {
+                alert("Masukkan parameter dengan benar");
+                return;
+            }
 
             // Melakukan perhitungan sesuai rumus
-            var pemakaianKarbid = 4.87 * ((tonase * sulfur / 100) - (tonase * 0.003));
+            var pemakaianKarbid = 4.67 * ((tonase * sulfur / 100) - (tonase * 0.003));
 
             // Menampilkan hasil pada elemen dengan id 'hasil'
             document.getElementById('hasil').innerHTML = pemakaianKarbid.toFixed(2);
         }
 
-        function resetForm() {
-            // Mengosongkan nilai input
-            document.getElementById('tonase').value = '';
-            document.getElementById('sulfur').value = '';
-            document.getElementById('hasil').innerHTML = '';
+        function refreshInput() {
+            // Mengosongkan nilai input dan hasil
+            document.getElementById('tonase').value = "";
+            document.getElementById('sulfur').value = "";
+            document.getElementById('hasil').innerHTML = "";
         }
     </script>
 
