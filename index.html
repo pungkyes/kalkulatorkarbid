@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Pemakaian Karbid</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #hasil {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Kalkulator Pemakaian Karbid</h2>
+
+    <label for="tonase">Tonase Crude Metal (Kg): </label>
+    <input type="number" id="tonase" step="0.01" placeholder="Misal: 25000" required>
+
+    <label for="sulfur">Sulfur Metal (%): </label>
+    <input type="text" id="sulfur" placeholder="Misal: 0.9" required>
+
+    <button onclick="hitungPemakaianKarbid()">Hitung</button>
+    <button onclick="resetForm()">Refresh</button>
+
+    <p>Hasil Pemakaian Karbid: <span id="hasil"></span> Kg</p>
+
+    <script>
+        function hitungPemakaianKarbid() {
+            // Mendapatkan nilai dari input
+            var tonase = parseFloat(document.getElementById('tonase').value);
+            var sulfur = parseFloat(document.getElementById('sulfur').value.replace(',', '.')); // Mengganti koma menjadi titik
+
+            // Melakukan perhitungan sesuai rumus
+            var pemakaianKarbid = 4.87 * ((tonase * sulfur / 100) - (tonase * 0.003));
+
+            // Menampilkan hasil pada elemen dengan id 'hasil'
+            document.getElementById('hasil').innerHTML = pemakaianKarbid.toFixed(2);
+        }
+
+        function resetForm() {
+            // Mengosongkan nilai input
+            document.getElementById('tonase').value = '';
+            document.getElementById('sulfur').value = '';
+            document.getElementById('hasil').innerHTML = '';
+        }
+    </script>
+
+</body>
+</html>
