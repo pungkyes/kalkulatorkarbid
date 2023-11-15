@@ -4,34 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kalkulator Pemakaian Karbid</title>
-    <title>SALAM ANTAM, BEST!!!!!</title>
     <style>
         body {
-            background-color: #f2f2f2;
+            background-color: #f0f0f0;
             font-family: Arial, sans-serif;
+            text-align: center;
             margin: 20px;
         }
 
         h2 {
-            color: #333333;
+            color: #333;
         }
 
         label {
             display: block;
-            margin-bottom: 5px;
-            color: #333333;
+            margin-top: 10px;
         }
 
         input {
+            width: 80%;
+            padding: 8px;
             margin-bottom: 10px;
         }
 
         button {
             background-color: #4caf50;
             color: white;
-            padding: 10px 15px;
+            padding: 10px;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
         }
 
@@ -40,19 +40,20 @@
         }
 
         p {
-            color: #333333;
-            margin-top: 10px;
+            margin-top: 20px;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
 
     <h2>Kalkulator Pemakaian Karbid</h2>
+    <h2>SALAM ANTAM, BEST!!!!!!</h2>
 
     <label for="tonase">Tonase Crude Metal (Kg): </label>
     <input type="number" id="tonase" step="0.01" placeholder="Misal: 25000" required>
 
-    <label for="sulfur">Sulfur Metal (%): (Gunakan tanda titik) </label>
+    <label for="sulfur">Sulfur Metal (%): </label>
     <input type="text" id="sulfur" placeholder="Misal: 0.9" required>
 
     <button onclick="hitungPemakaianKarbid()">Hitung</button>
@@ -60,30 +61,26 @@
 
     <p>Hasil Pemakaian Karbid: <span id="hasil"></span> Kg</p>
 
+    <h2>Perhitungan ini dibuat dengan tujuan menurunkan sulfur produk ke 0.3% dengan index 4.87 Kg Karbid/Kg Sulfur Crude </h2>
+
     <script>
         function hitungPemakaianKarbid() {
-            // Mendapatkan nilai dari input
             var tonase = parseFloat(document.getElementById('tonase').value);
-            var sulfur = parseFloat(document.getElementById('sulfur').value);
+            var sulfur = parseFloat(document.getElementById('sulfur').value.replace(',', '.'));
 
-            // Validasi input
             if (isNaN(tonase) || isNaN(sulfur)) {
-                alert("Masukkan parameter dengan benar");
+                alert('Masukkan parameter dengan benar.');
                 return;
             }
 
-            // Melakukan perhitungan sesuai rumus
-            var pemakaianKarbid = 4.67 * ((tonase * sulfur / 100) - (tonase * 0.003));
-
-            // Menampilkan hasil pada elemen dengan id 'hasil'
+            var pemakaianKarbid = 4.87 * ((tonase * sulfur / 100) - (tonase * 0.003));
             document.getElementById('hasil').innerHTML = pemakaianKarbid.toFixed(2);
         }
 
         function refreshInput() {
-            // Mengosongkan nilai input dan hasil
-            document.getElementById('tonase').value = "";
-            document.getElementById('sulfur').value = "";
-            document.getElementById('hasil').innerHTML = "";
+            document.getElementById('tonase').value = '';
+            document.getElementById('sulfur').value = '';
+            document.getElementById('hasil').innerHTML = '';
         }
     </script>
 
