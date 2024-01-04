@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id"> <!-- Ganti lang="en" menjadi lang="id" untuk Bahasa Indonesia -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,13 +45,36 @@
         }
 
         .resized-image {
-            width: 50%; /* Merubah lebar gambar menjadi setengahnya */
-            height: auto; /* Menyesuaikan tinggi sesuai proporsi aslinya */
-            opacity: 1; /* Tingkat transparansi */
+            width: 50%;
+            height: auto;
+            opacity: 1;
+        }
+
+        /* New style for the added paragraphs */
+        #hasil, #jumlahSulfurCrude, #sulfurDihilangkan, #sisaSulfurCrude {
+            color: #333;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        /* Style for bold paragraphs */
+        #boldParagraph {
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
+
+    <div style="position: absolute; top: 10px; left: 10px; color: #333; font-size: 16px;">
+        <script>
+            var days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            var today = new Date();
+            var day = days[today.getDay()];
+            var date = today.toLocaleDateString('id-ID'); // Ganti 'en-US' menjadi 'id-ID' untuk Bahasa Indonesia
+            var time = today.toLocaleTimeString('en-US');
+            document.write(day + ', ' + date + ' ' + time);
+        </script>
+    </div>
 
     <img src="Logo Antam.png" class="resized-image">
     <h2>Kalkulator Pemakaian Karbid</h2>
@@ -59,19 +82,23 @@
     <h2>Kerja Ikhlas dan Cerdas, YES!!!!!</h2>    
     
     <label for="tonase">Tonase Crude Metal (Kg): </label>
-    <input type="number" id="tonase" step="0.01" placeholder="Misal: 25000" required>
+    <input type="number" id="tonase" step="1000" placeholder="Misal: 25000" required>
 
     <label for="sulfur">Sulfur Metal (%): </label>
-    <input type="number" id="sulfur" placeholder="Misal: 0.9" required>
+    <input type="number" id="sulfur" step="0.05" placeholder="Misal: 0.9" required>
 
     <button onclick="hitungPemakaianKarbid()">Hitung</button>
     <button onclick="refreshInput()">Refresh</button>
 
-    <h2>Hasil Pemakaian Karbid: <span id="hasil"></span> Kg</h2>
+    <p id="boldParagraph">Estimasi Pemakaian Karbid : <span id="hasil"></span> Kg</p>
+    <p>Jumlah Sulfur pada Crude : <span id="jumlahSulfurCrude"></span> Kg</p>
+    <p>Sulfur yang Akan Dihilangkan : <span id="sulfurDihilangkan"></span> Kg</p>
+    <p id="boldParagraph">Estimasi Waktu Pengadukan Crude di Stirrer : <span id="waktuPengadukan"></span> Menit</p>
+    <p>Sisa Sulfur pada Crude : <span id="sisaSulfurCrude"></span> Kg</p>
 
-    <p>Perhitungan ini dibuat dengan tujuan menurunkan sulfur produk ke 0.3% dengan index 4.87 Kg Karbid/Kg Sulfur Crude </p>
+    <p>Asumsi Perhitungan : Perhitungan ini dibuat dengan tujuan menurunkan sulfur produk ke 0.3% dengan index 4.87 Kg Karbid/Kg Sulfur Crude dan setiap 1 menit pengadukan akan melarutkan 4.5 Kg sulfur pada Crude</p>
 
-    <p>Created by : PES</p>
+    <p>Created by : PES, Inspired by Daeng Halik Rahimahullah</p>
 
     <script>
         function hitungPemakaianKarbid() {
@@ -83,14 +110,27 @@
                 return;
             }
 
-            var pemakaianKarbid = 4.87 * ((tonase * sulfur / 100) - (tonase * 0.003));
-            document.getElementById('hasil').innerHTML = pemakaianKarbid.toFixed(2);
+            var jumlahSulfurCrude = tonase * sulfur / 100;
+            var sulfurDihilangkan = (tonase * sulfur / 100) - (tonase * 0.003);
+            var pemakaianKarbid = 4.87 * sulfurDihilangkan;
+            var waktuPengadukan = sulfurDihilangkan / 4.5;
+            var sisaSulfurCrude = jumlahSulfurCrude - sulfurDihilangkan;
+
+            document.getElementById('hasil').innerHTML = pemakaianKarbid.toFixed(0);
+            document.getElementById('jumlahSulfurCrude').innerHTML = jumlahSulfurCrude.toFixed(0);
+            document.getElementById('sulfurDihilangkan').innerHTML = sulfurDihilangkan.toFixed(0);
+            document.getElementById('waktuPengadukan').innerHTML = waktuPengadukan.toFixed(0);
+            document.getElementById('sisaSulfurCrude').innerHTML = sisaSulfurCrude.toFixed(0);
         }
 
         function refreshInput() {
             document.getElementById('tonase').value = '';
             document.getElementById('sulfur').value = '';
             document.getElementById('hasil').innerHTML = '';
+            document.getElementById('jumlahSulfurCrude').innerHTML = '';
+            document.getElementById('sulfurDihilangkan').innerHTML = '';
+            document.getElementById('waktuPengadukan').innerHTML = '';
+            document.getElementById('sisaSulfurCrude').innerHTML = '';
         }
     </script>
 
