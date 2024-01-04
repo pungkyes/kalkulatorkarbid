@@ -68,11 +68,16 @@
     <div style="position: absolute; top: 10px; left: 10px; color: #333; font-size: 16px;">
         <script>
             var days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            var months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            
             var today = new Date();
             var day = days[today.getDay()];
-            var date = today.toLocaleDateString('id-ID'); // Ganti 'en-US' menjadi 'id-ID' untuk Bahasa Indonesia
+            var month = months[today.getMonth()];
+            var date = today.getDate();
+            var year = today.getFullYear();
             var time = today.toLocaleTimeString('en-US');
-            document.write(day + ', ' + date + ' ' + time);
+            
+            document.write(day + ', ' + date + ' ' + month + ' ' + year + ' ' + time);
         </script>
     </div>
 
@@ -99,6 +104,7 @@
     <p>Asumsi Perhitungan : Perhitungan ini dibuat dengan tujuan menurunkan sulfur produk ke 0.3% dengan index 4.87 Kg Karbid/Kg Sulfur Crude dan setiap 1 menit pengadukan akan melarutkan 4.5 Kg sulfur pada Crude</p>
 
     <p>Created by : PES, Inspired by Daeng Halik Rahimahullah</p>
+    <p>Modified Date : 20240104</p>
 
     <script>
         function hitungPemakaianKarbid() {
